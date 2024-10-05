@@ -5,7 +5,7 @@ This repository contains a collection of projects I have developed while learnin
 
 ## Technologies
 This repository currently leverages the following technologies, with plans to include more in future projects:
-- **Python 3.x**
+- **Python 3.12**
 - **NLP libraries in use:**
   - SpaCy
   - Scikit-learn
