@@ -121,7 +121,7 @@ Entities: {'Persons': [], 'Organizations': ['Chicago Home', 'hyundai', 'H.H.M.']
 ```
 Classification Accuracy: 0.9684873949579832
 ```
-**Confusion Matrix** (example):
+**Confusion Matrix**:
 
 <img width="644" alt="Screenshot 2024-10-05 at 19 26 40" src="https://github.com/user-attachments/assets/bbffbd48-23a3-490c-b707-33f49a3616a6">
 
