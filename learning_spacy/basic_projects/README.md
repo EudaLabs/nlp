@@ -1,5 +1,5 @@
 
----
+
 
 ## Document Analysis, Classification, and Summarization Project
 
@@ -59,42 +59,27 @@ python -m spacy download en_core_web_sm
 1. **data_preparation.py**:
    - This script loads the 20 Newsgroups dataset, specifies the categories, and prepares the data for analysis.
 
-   Example usage:
-   ```bash
-   python data_preparation.py
-   ```
+
 
 2. **entity_recognition.py**:
    - This script extracts named entities (persons, organizations, dates, locations) from the news articles using SpaCy.
 
-   Example usage:
-   ```bash
-   python entity_recognition.py
-   ```
+
 
 3. **document_classification.py**:
    - This script performs document classification using **TF-IDF** vectorization and the **Naive Bayes** classifier. The script also calculates the classification accuracy.
 
-   Example usage:
-   ```bash
-   python document_classification.py
-   ```
+
 
 4. **summarization.py**:
    - This script generates automatic summaries of the news articles using **Gensim**'s summarization tool.
 
-   Example usage:
-   ```bash
-   python summarization.py
-   ```
+
 
 5. **visualization.py**:
    - This script visualizes the classification results by generating a confusion matrix using **Matplotlib** and **Seaborn**.
 
-   Example usage:
-   ```bash
-   python visualization.py
-   ```
+
 
 ### How it Works
 
@@ -136,6 +121,7 @@ Entities: {'Persons': [], 'Organizations': ['Chicago Home', 'hyundai', 'H.H.M.']
 ```
 Classification Accuracy: 0.9684873949579832
 ```
-
 **Confusion Matrix** (example):
-![Screenshot 2024-10-05 at 19.26.40.png](..%2F..%2F..%2F..%2FDownloads%2FScreenshot%202024-10-05%20at%2019.26.40.png)
+
+<img width="644" alt="Screenshot 2024-10-05 at 19 26 40" src="https://github.com/user-attachments/assets/bbffbd48-23a3-490c-b707-33f49a3616a6">
+
