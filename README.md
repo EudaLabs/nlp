@@ -1,5 +1,5 @@
 
-# Natural Language Processing (NLP) Projects
+# Natural Language Processing (NLP) 
 
 This repository contains a collection of projects I have developed while learning and experimenting with various Natural Language Processing (NLP) techniques. Each project demonstrates different aspects of NLP using Python and related libraries.
 
