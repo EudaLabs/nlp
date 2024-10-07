@@ -96,9 +96,9 @@ python -m spacy download en_core_web_sm
 4. **Visualization**:
    - We generate a **confusion matrix** to assess the classifier's performance. This matrix shows how well the model classified each document, helping us visualize where the model performs well and where it struggles.
 
-### Example Output
+### Output
 
-**Entity Recognition** (example):
+**Entity Recognition**:
 ```
 Article 1:
 Entities: {'Persons': ['Donald P Boell', 'Pitchers', 'Scott Aldred', 'Andy Ashby', 'Willie Blair', 'Butch Henry', 'Darren Holmes', 'David Neid', 'Jeff Parrett', 'Steve Reed', 'Bruce Ruffin', 'Bryn Smith', 'Gary Wayne', 'Joe Girardi', 'Danny Sheaffer', 'Vinny Castilla', 'Andres Galarraga', 'Charlie Hayes', '.250,48', 'Jim Tatum', 'Eric Young', 'Dante Bichette', 'Daryl Boston', 'Jerald Clark', 'Alex Cole', 'Gerald Young', 'Dale Murphy'], 'Organizations': ['boell@hpcc01.corp.hp.com', 'HP Corporate', 'MLB Totals', 'RBI', '.110', 'RBI', 'Freddie Benavides', 'RBI', 'SS', 'RBI', 'RBI', 'RBI', 'RBI', 'RBI', '.254,38 HR,176 RBI', 'RBI', 'RBI', 'RBI', 'HR,109 RBI,153 SB', 'RBI'], 'Dates': ['.246', '.125', '.283', '.246', '.266', '1259'], 'Locations': ['SB', 'SB', 'SB', 'SB', 'SB']}
