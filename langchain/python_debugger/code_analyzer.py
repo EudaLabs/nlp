@@ -2,13 +2,13 @@ import ast
 
 def analyze_code(code):
     """
-
+    Analyzes the given Python code for syntax errors.
     """
     try:
-        # Python kodunu parse ediyoruz
+        # Parse the Python code
         tree = ast.parse(code)
-        # Hata yoksa boş liste döndürüyoruz
+        # If no error, return an empty list
         return []
     except SyntaxError as e:
-        # Syntax hatasını yakalayıp liste olarak döndürüyoruz
+        # Catch the syntax error and return it as a list
         return [str(e)]
