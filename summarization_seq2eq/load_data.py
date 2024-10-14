@@ -1,14 +1,7 @@
-import tensorflow_datasets as tfds
-import numpy as np
+import os
+import re
 from tensorflow.keras.preprocessing.text import Tokenizer
 from tensorflow.keras.preprocessing.sequence import pad_sequences
-import re
-import nltk
-from nltk.corpus import stopwords
-
-
-nltk.download('stopwords')
-stop_words = set(stopwords.words('english'))
 
 
 def clean_text(text):
@@ -17,35 +10,41 @@ def clean_text(text):
     text = re.sub('"', '', text)
     text = re.sub(r"'s\b", "", text)
     text = re.sub("[^a-zA-Z]", " ", text)
-    text = " ".join([word for word in text.split() if word not in stop_words])
+    text = " ".join(text.split())
     return text
 
 
-def load_and_preprocess_data(max_article_len, max_summary_len):
-    dataset, info = tfds.load('cnn_dailymail', version='3.0.0', with_info=True)
-    train_dataset = dataset['train']
-    val_dataset = dataset['validation']
-    test_dataset = dataset['test']
+def load_stories(directory):
+    articles = []
+    summaries = []
 
-    train_articles = []
-    train_summaries = []
+    for filename in os.listdir(directory):
+        if filename.endswith(".story"):
+            with open(os.path.join(directory, filename), 'r', encoding='utf-8') as file:
+                text = file.read()
+                article, highlights = text.split("\n\n@highlight\n\n", 1)
+                articles.append(clean_text(article))
+                summaries.append(clean_text(highlights))
 
-    for example in train_dataset.take(2000):
-        article = example['article'].numpy().decode('utf-8')
-        summary = example['highlights'].numpy().decode('utf-8')
-        train_articles.append(clean_text(article))
-        train_summaries.append(clean_text(summary))
+    return articles, summaries
 
+
+def tokenize_and_pad(articles, summaries, max_article_len, max_summary_len):
     article_tokenizer = Tokenizer()
-    article_tokenizer.fit_on_texts(train_articles)
+    article_tokenizer.fit_on_texts(articles)
 
     summary_tokenizer = Tokenizer()
-    summary_tokenizer.fit_on_texts(train_summaries)
+    summary_tokenizer.fit_on_texts(summaries)
 
-    article_seq = article_tokenizer.texts_to_sequences(train_articles)
-    summary_seq = summary_tokenizer.texts_to_sequences(train_summaries)
+    article_seq = article_tokenizer.texts_to_sequences(articles)
+    summary_seq = summary_tokenizer.texts_to_sequences(summaries)
 
     article_pad = pad_sequences(article_seq, maxlen=max_article_len, padding='post')
     summary_pad = pad_sequences(summary_seq, maxlen=max_summary_len, padding='post')
 
-    return article_pad, summary_pad, article_tokenizer, summary_tokenizer, train_dataset, val_dataset
+    return article_pad, summary_pad, article_tokenizer, summary_tokenizer
+
+
+def load_and_preprocess_data(stories_dir, max_article_len, max_summary_len):
+    articles, summaries = load_stories(stories_dir)
+    return tokenize_and_pad(articles, summaries, max_article_len, max_summary_len)

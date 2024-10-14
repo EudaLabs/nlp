@@ -6,8 +6,10 @@ from tensorflow.keras.callbacks import ModelCheckpoint
 
 max_article_len = 400
 max_summary_len = 100
+stories_dir = '/Users/efecelik/Downloads/cnn/stories'
 
-article_pad, summary_pad, article_tokenizer, summary_tokenizer, train_dataset, val_dataset = load_and_preprocess_data(max_article_len, max_summary_len)
+
+article_pad, summary_pad, article_tokenizer, summary_tokenizer = load_and_preprocess_data(stories_dir, max_article_len, max_summary_len)  # Burada eksik argümanı ekledik
 
 model = build_model(len(article_tokenizer.word_index)+1, len(summary_tokenizer.word_index)+1, max_article_len, max_summary_len)
 
