@@ -145,3 +145,58 @@ print(recommendations_glove)
 recommendations_fasttext = recommend_book('The Hobbit', 'fasttext')
 print(f"Recommended books for 'The Hobbit' using FastText:")
 print(recommendations_fasttext)
+
+# Output:
+#    book_id  ...                                    small_image_url
+# 0        1  ...  https://images.gr-assets.com/books/1447303603s...
+# 1        2  ...  https://images.gr-assets.com/books/1474154022s...
+# 2        3  ...  https://images.gr-assets.com/books/1361039443s...
+# 3        4  ...  https://images.gr-assets.com/books/1361975680s...
+# 4        5  ...  https://images.gr-assets.com/books/1490528560s...
+#
+# [5 rows x 23 columns]
+# Index(['book_id', 'goodreads_book_id', 'best_book_id', 'work_id',
+#        'books_count', 'isbn', 'isbn13', 'authors', 'original_publication_year',
+#        'original_title', 'title', 'language_code', 'average_rating',
+#        'ratings_count', 'work_ratings_count', 'work_text_reviews_count',
+#        'ratings_1', 'ratings_2', 'ratings_3', 'ratings_4', 'ratings_5',
+#        'image_url', 'small_image_url'],
+#       dtype='object')
+#                                                title                                            content
+# 0            The Hunger Games (The Hunger Games, #1)  The Hunger Games (The Hunger Games, #1) Suzann...
+# 1  Harry Potter and the Sorcerer's Stone (Harry P...  Harry Potter and the Sorcerer's Stone (Harry P...
+# 2                            Twilight (Twilight, #1)            Twilight (Twilight, #1) Stephenie Meyer
+# 3                              To Kill a Mockingbird                   To Kill a Mockingbird Harper Lee
+# 4                                   The Great Gatsby               The Great Gatsby F. Scott Fitzgerald
+# TF-IDF matrix shape: (10000, 2000)
+# [==================================================] 100.0% 1662.8/1662.8MB downloaded
+# [==================================================] 100.0% 128.1/128.1MB downloaded
+# [==================================================] 100.0% 958.5/958.4MB downloaded
+# Recommended books for 'The Hobbit' using TF-IDF:
+# 2308                                The Children of Húrin
+# 4975         Unfinished Tales of Númenor and Middle-Earth
+# 610              The Silmarillion (Middle-Earth Universe)
+# 963     J.R.R. Tolkien 4-Book Boxed Set: The Hobbit an...
+# 154            The Two Towers (The Lord of the Rings, #2)
+# Name: title, dtype: object
+# Recommended books for 'The Hobbit' using Word2Vec:
+# 963     J.R.R. Tolkien 4-Book Boxed Set: The Hobbit an...
+# 3988    The Dark Elf Trilogy Collector's Edition (Forg...
+# 4011    Buffy the Vampire Slayer: The Long Way Home (S...
+# 7899                                   The Goblin Emperor
+# 8054    The Frog and Toad Treasury: Frog and Toad are ...
+# Name: title, dtype: object
+# Recommended books for 'The Hobbit' using GloVe:
+# 963     J.R.R. Tolkien 4-Book Boxed Set: The Hobbit an...
+# 4975         Unfinished Tales of Númenor and Middle-Earth
+# 8271                   The Complete Guide to Middle-Earth
+# 610              The Silmarillion (Middle-Earth Universe)
+# 154            The Two Towers (The Lord of the Rings, #2)
+# Name: title, dtype: object
+# Recommended books for 'The Hobbit' using FastText:
+# 963     J.R.R. Tolkien 4-Book Boxed Set: The Hobbit an...
+# 9092    The Lightning Thief: The Graphic Novel (Percy ...
+# 6140    Harry Potter and the Order of the Phoenix (Har...
+# 6245    The Crippled God (The Malazan Book of the Fall...
+# 8698              The Complete Adventures of Peter Rabbit
+# Name: title, dtype: object
