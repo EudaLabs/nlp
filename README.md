@@ -11,9 +11,9 @@ This repository currently leverages the following technologies, with plans to in
   - Scikit-learn
   - Seaborn
   - Matplotlib
-- **Planned for future use:**
   - NLTK
   - Gensim
+- **Planned for future use:**
   - Hugging Face Transformers
   - Other deep learning frameworks like PyTorch or TensorFlow for advanced models
 - **Supporting libraries:**
