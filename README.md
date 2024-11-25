@@ -13,11 +13,14 @@ This repository currently leverages the following technologies, with plans to in
   - Matplotlib
   - NLTK
   - Gensim
+- **Other libraries:**
+  - LangChain
+  - Gradio
 - **Planned for future use:**
   - Hugging Face Transformers
   - Other deep learning frameworks like PyTorch or TensorFlow for advanced models
 - **Supporting libraries:**
-  - NumPy, pandas for data manipulation
+  - NumPy, Pandas for data manipulation
 
 Each project folder contains:
 - A detailed explanation in the README file of the project folder.
