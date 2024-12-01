@@ -1,9 +1,9 @@
-# Contributors
-- [efeecllk](https://github.com/efeecllk)
-
 # Natural Language Processing (NLP) 
 
 This repository contains a collection of projects I have developed while learning and experimenting with various Natural Language Processing (NLP) techniques. Each project demonstrates different aspects of NLP using Python and related libraries.
+
+# Contributor
+- [efeecllk](https://github.com/efeecllk)
 
 ## Technologies
 This repository currently leverages the following technologies, with plans to include more in future projects:
