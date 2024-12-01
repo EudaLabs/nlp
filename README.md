@@ -1,4 +1,4 @@
-# Contributor
+# Contributors
 - [efeecllk](https://github.com/efeecllk)
 
 # Natural Language Processing (NLP) 
