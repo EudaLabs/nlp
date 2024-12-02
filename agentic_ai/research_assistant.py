@@ -6,6 +6,7 @@ from litellm import completion
 # Function to get direct Ollama response
 def get_ollama_response(prompt, max_words=50):
     try:
+        print(f"Attempting to connect to Ollama at http://localhost:11434...")
         response = completion(
             model="ollama/llama3",
             messages=[
@@ -15,11 +16,20 @@ def get_ollama_response(prompt, max_words=50):
         )
         return response.choices[0].message.content
     except Exception as e:
-        print(f"Ollama interaction error: {e}")
-        return f"Error in Ollama response: {e}"
+        print(f"Detailed Ollama error: {str(e)}")
+        return f"Error in Ollama response: {str(e)}"
 
 # Initialize the Ollama Llama3 language model
-llm = OllamaLLM(model="llama3")
+try:
+    print("Initializing Ollama LLM...")
+    llm = OllamaLLM(
+        model="llama2",
+        base_url="http://localhost:11434",
+        temperature=0.7
+    )
+except Exception as e:
+    print(f"Failed to initialize Ollama LLM: {str(e)}")
+    exit(1)
 
 # Agent 1: AI Agents Research Specialist
 ai_agents_researcher = Agent(
@@ -102,11 +112,14 @@ crew = Crew(
     verbose=True
 )
 
-# Kick off the crew's work
-result = crew.kickoff()
-
-# Print the final result
-print(result)
+# Update the crew execution with error handling
+try:
+    print("\nStarting crew execution...")
+    result = crew.kickoff()
+    print("\nCrew execution result:")
+    print(result)
+except Exception as e:
+    print(f"\nError during crew execution: {str(e)}")
 
 # Additional Ollama Direct Interaction Example
 print("\n--- Direct Ollama Interaction Examples ---")
