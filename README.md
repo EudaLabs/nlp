@@ -31,7 +31,7 @@ Each project folder contains:
 
 
 
-## Contributing
+## [Contributing](https://github.com/EudaLabs/nlp/blob/main/CONTRIBUTING.md)
 Contributions are welcome! If you'd like to add a new project or improve existing ones, please open an issue or create a pull request.
 
 
