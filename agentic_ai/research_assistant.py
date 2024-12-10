@@ -14,7 +14,9 @@ def get_ollama_response(prompt, max_words=50):
             ],
             api_base="http://localhost:11434"
         )
-        return response.choices[0].message.content
+        if response and hasattr(response, 'choices') and response.choices:
+            return response.choices[0].message.content
+        return "Error: Invalid response format from Ollama"
     except Exception as e:
         print(f"Detailed Ollama error: {str(e)}")
         return f"Error in Ollama response: {str(e)}"
@@ -23,7 +25,7 @@ def get_ollama_response(prompt, max_words=50):
 try:
     print("Initializing Ollama LLM...")
     llm = OllamaLLM(
-        model="llama2",
+        model="llama3",
         base_url="http://localhost:11434",
         temperature=0.7
     )
