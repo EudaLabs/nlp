@@ -1,2 +1,11 @@
+# MLflow directory
 mlruns/
+
+# CSV files
 *.csv
+
+# Additional common data files
+*.dat
+*.tsv
+
+# Ensure no trailing spaces
