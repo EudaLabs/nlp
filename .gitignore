@@ -1,5 +1,8 @@
 # MLflow directory
 mlruns/
+**/mlruns/
+.mlruns/
+**/.mlruns/
 
 # CSV files
 *.csv
