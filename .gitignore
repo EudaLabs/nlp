@@ -11,4 +11,10 @@ mlruns/
 *.dat
 *.tsv
 
-# Ensure no trailing spaces
+# Ignore Roff files
+*.1
+*.2
+*.3
+*.man
+*.mdoc
+*.roff
