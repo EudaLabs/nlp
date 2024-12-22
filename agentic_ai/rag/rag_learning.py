@@ -13,7 +13,8 @@ from sentence_transformers import SentenceTransformer
 import pinecone
 from tqdm import tqdm
 import torch
-from anthropic import Anthropic
+from google.generativeai import GenerativeModel
+import google.generativeai as genai
 import tiktoken
 from redis import Redis
 import hashlib
@@ -176,11 +177,12 @@ class RAGSystem:
     def __init__(self,
                  vector_store: VectorStore,
                  response_cache: ResponseCache,
-                 anthropic_api_key: str):
+                 google_api_key: str):
         
         self.vector_store = vector_store
         self.response_cache = response_cache
-        self.anthropic_client = Anthropic(api_key=anthropic_api_key)
+        genai.configure(api_key=google_api_key)
+        self.model = GenerativeModel('gemini-pro')
         
     def generate_prompt(self, query: str, context_docs: List[Dict]) -> str:
         """Generate a prompt for the LLM"""
@@ -215,26 +217,17 @@ class RAGSystem:
         # Generate prompt
         prompt = self.generate_prompt(query, relevant_docs)
         
-        # Get response from Claude
+        # Get response from Gemini
         for attempt in range(max_retries):
             try:
-                response = self.anthropic_client.messages.create(
-                    model="claude-3-opus-20240229",
-                    max_tokens=1000,
-                    messages=[
-                        {
-                            "role": "user",
-                            "content": prompt
-                        }
-                    ]
-                )
+                response = self.model.generate_content(prompt)
                 
                 result = {
                     'query': query,
-                    'response': response.content,
+                    'response': response.text,
                     'source_documents': relevant_docs,
                     'metadata': {
-                        'model': "claude-3-opus-20240229",
+                        'model': "gemini-pro",
                         'timestamp': pd.Timestamp.now().isoformat()
                     }
                 }
@@ -266,7 +259,7 @@ def main():
     rag_system = RAGSystem(
         vector_store=vector_store,
         response_cache=response_cache,
-        anthropic_api_key=os.getenv('ANTHROPIC_API_KEY')
+        google_api_key=os.getenv('GOOGLE_API_KEY')
     )
     
     # Example usage
