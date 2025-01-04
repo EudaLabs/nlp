@@ -6,6 +6,7 @@ mlruns/
 
 # CSV files
 *.csv
+*.csv.1
 
 # Additional common data files
 *.dat
