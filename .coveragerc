@@ -1,0 +1,17 @@
+[run]
+omit = 
+    */tests/*
+    */test_*
+    */__pycache__/*
+    */venv/*
+    */env/*
+    setup.py
+
+[report]
+exclude_lines =
+    pragma: no cover
+    def __repr__
+    raise AssertionError
+    raise NotImplementedError
+    if __name__ == .__main__.:
+    if TYPE_CHECKING:

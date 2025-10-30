@@ -1,0 +1,93 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    strategy:
+      matrix:
+        python-version: ['3.9', '3.10', '3.11', '3.12']
+      fail-fast: false
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v5
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pytest pytest-cov pytest-mock
+        # Install only essential dependencies for testing
+        pip install numpy pandas scikit-learn
+    
+    - name: Run tests
+      run: |
+        pytest --cov=. --cov-report=xml --cov-report=term-missing
+    
+    - name: Upload coverage to Codecov
+      uses: codecov/codecov-action@v3
+      if: matrix.python-version == '3.12'
+      with:
+        file: ./coverage.xml
+        fail_ci_if_error: false
+        flags: unittests
+        name: codecov-umbrella
+
+  lint:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.12'
+    
+    - name: Install linting tools
+      run: |
+        pip install black flake8 isort
+    
+    - name: Check code formatting with Black
+      run: |
+        black --check --diff .
+      continue-on-error: true
+    
+    - name: Lint with flake8
+      run: |
+        # Stop the build if there are Python syntax errors or undefined names
+        flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
+        # Exit-zero treats all errors as warnings
+        flake8 . --count --exit-zero --max-complexity=10 --max-line-length=100 --statistics
+      continue-on-error: true
+    
+    - name: Check import sorting with isort
+      run: |
+        isort --check-only --diff .
+      continue-on-error: true

@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  api:
+    build: .
+    container_name: nlp-api
+    ports:
+      - "8000:8000"
+    environment:
+      - MODEL_PATH=${MODEL_PATH:-./models/bert-imdb}
+      - MODEL_NAME=${MODEL_NAME:-bert-base-uncased}
+      - NUM_CLASSES=${NUM_CLASSES:-2}
+      - LOG_LEVEL=${LOG_LEVEL:-info}
+    volumes:
+      - ./models:/app/models
+      - ./logs:/app/logs
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
