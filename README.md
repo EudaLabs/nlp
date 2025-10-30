@@ -35,9 +35,59 @@ This repository utilizes a diverse set of technologies, with plans to expand fur
 - **NumPy**  
 - **Pandas**  
 
-#### 🚀 **Planned for Future Projects:**  
-- **Hugging Face Transformers**  
-- **PyTorch** or **TensorFlow** for advanced deep learning models  
+#### 🚀 **Now Available:**  
+- ✅ **Hugging Face Transformers** - BERT fine-tuning and inference
+- ✅ **PyTorch** - Deep learning model implementations  
+- ✅ **FastAPI** - Production-ready API deployment
+- ✅ **Gradio** - Interactive web demos
+- ✅ **Testing & CI/CD** - Automated quality assurance
+
+---
+
+## 🚀 **Quick Start**
+
+### Installation
+
+```bash
+# Clone the repository
+git clone https://github.com/EudaLabs/nlp.git
+cd nlp
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+### Run Your First Demo
+
+```bash
+# Try sentiment analysis with Gradio
+python -m gradio_demos.sentiment_analysis
+
+# Or start the FastAPI server
+python -m fastapi_deployment.app
+```
+
+### Train Your First Model
+
+```bash
+# Train BERT for sentiment analysis
+cd bert_classification
+python -m bert_classification.train \
+    --dataset imdb \
+    --epochs 3 \
+    --batch-size 16 \
+    --output-dir ./models/bert-imdb
+```
+
+### Run Tests
+
+```bash
+# Run all tests
+pytest
+
+# Run with coverage
+pytest --cov=. --cov-report=html
+```
 
 ---
 
@@ -45,8 +95,9 @@ This repository utilizes a diverse set of technologies, with plans to expand fur
 
 Each project folder includes:  
 - 📄 **README.md:** Detailed explanation of the project objectives, methodologies, and findings.  
-- 📝 **Code Files:** Jupyter Notebooks (`.ipynb`) or Python Scripts (`.py`) for reproducibility.  
+- 📝 **Code Files:** Python Scripts (`.py`) and Jupyter Notebooks (`.ipynb`) for reproducibility.  
 - 📊 **Datasets (if applicable):** Preprocessed and/or raw data used in the project.  
+- ✅ **Tests:** Unit tests to ensure code quality and correctness.  
 
 ---
 
@@ -92,6 +143,27 @@ This repository is continuously growing from **31 projects to 100+ over 9 months
 ---
 
 ### 📊 **Current Projects**  
+
+#### 🆕 BERT & Transformers
+- **BERT Text Classification** - Fine-tuning BERT for sentiment analysis and multi-class classification
+- **Training & Inference Pipeline** - Complete implementation with evaluation metrics
+- **Configurable Architecture** - Easy-to-use configuration classes
+
+#### 🚀 Production Deployment
+- **FastAPI Model Serving** - RESTful API for model inference with Docker support
+- **Health Checks & Monitoring** - Production-ready endpoints with metrics
+- **Batch Processing** - Efficient batch prediction support
+
+#### 🎨 Interactive Demos
+- **Gradio Applications** - Web-based demos for sentiment analysis, text classification, and QA
+- **Zero-Shot Classification** - Classify into custom categories without training
+- **Question Answering** - Extractive QA with pre-trained models
+
+#### ⚙️ Infrastructure & Testing
+- **Testing Framework** - pytest configuration with coverage reporting
+- **CI/CD Pipeline** - GitHub Actions for automated testing and quality checks
+- **Pre-commit Hooks** - Code formatting and linting automation
+- **Docker Support** - Containerized deployment examples
 
 #### Basic Text Processing
 - Bag of Words implementation
