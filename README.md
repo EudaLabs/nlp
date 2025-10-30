@@ -50,6 +50,89 @@ Each project folder includes:
 
 ---
 
+### 🗺️ **Expansion Roadmap**  
+
+This repository is continuously growing from **31 projects to 100+ over 9 months**! 
+
+**📚 Complete Documentation Suite:**
+- 📋 **[Quick Summary](ROADMAP_SUMMARY.md)** - TL;DR of expansion plans (Start here!)
+- 🎯 **[Immediate Priorities](EXPANSION_PRIORITIES.md)** - Top 10 priorities + 30-day action plan
+- 🗺️ **[Detailed Roadmap](ROADMAP.md)** - Complete 10-phase expansion plan (38 weeks)
+- 📊 **[Visual Overview](EXPANSION_OVERVIEW.md)** - Diagrams, metrics, and priority matrices
+- 🚀 **[Getting Started Guide](GETTING_STARTED_WITH_EXPANSION.md)** - How to implement the roadmap
+
+**🎯 Top Priorities:**
+1. Testing Infrastructure (pytest, coverage)
+2. CI/CD Pipeline (GitHub Actions)
+3. BERT Text Classification
+4. Named Entity Recognition
+5. Question Answering System
+6. FastAPI Model Deployment
+7. Advanced RAG Enhancements
+8. Text Generation Projects
+9. Multilingual NLP Support
+10. Evaluation Framework
+
+**📈 Coming in Next 3 Months:**
+- ✅ Advanced Transformer implementations (BERT, GPT, T5)
+- ✅ Production deployment examples (FastAPI, Docker)
+- ✅ Comprehensive testing infrastructure (>80% coverage)
+- ✅ PyTorch & TensorFlow projects
+- ✅ Model optimization techniques
+- ✅ Evaluation and benchmarking tools
+
+**🌟 Long-term Vision (9 months):**
+- Multilingual NLP projects
+- Speech and audio processing
+- Domain-specific applications (Healthcare, Legal, Finance)
+- MLOps best practices
+- Research paper implementations
+- Active community of contributors
+
+---
+
+### 📊 **Current Projects**  
+
+#### Basic Text Processing
+- Bag of Words implementation
+- Lemmatization techniques
+- Part-of-Speech tagging
+- Similarity measures (Cosine, Euclidean)
+- Spam mail detection
+
+#### Word Embeddings
+- Word2Vec implementations
+- Custom embedding model training
+
+#### SpaCy Projects
+- Named Entity Recognition
+- Document classification
+- Text summarization
+- Data preparation pipelines
+- Visualization tools
+
+#### LangChain & LLMs
+- Python code debugger with Llama3
+- Chain operations
+- RAG (Retrieval-Augmented Generation) system
+
+#### Hugging Face Transformers
+- Sentiment analysis applications
+
+#### Agentic AI
+- Research assistant
+- RAG with vector databases
+- MLflow integration
+
+#### Recommendation Systems
+- Book recommendation engine
+
+#### Summarization
+- Sequence-to-sequence models
+- Neural summarization training
+
+---
+
 ### 🤝 **Contributing**  
 Contributions are **welcome and encouraged!** 🚀  
 If you'd like to:  
