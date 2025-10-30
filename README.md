@@ -50,6 +50,64 @@ Each project folder includes:
 
 ---
 
+### 🗺️ **Expansion Roadmap**  
+
+This repository is continuously growing! Check out our expansion plans:  
+- 📋 **[Detailed Roadmap](ROADMAP.md)** - Comprehensive expansion plan with 10 phases
+- 🎯 **[Immediate Priorities](EXPANSION_PRIORITIES.md)** - Top 10 priorities and 30-day action plan  
+
+**Coming Soon:**
+- Advanced Transformer implementations (BERT, GPT, T5)
+- Production deployment examples (FastAPI, Docker)
+- Comprehensive testing infrastructure
+- Multilingual NLP projects
+- Speech and audio processing
+- Domain-specific applications (Healthcare, Legal, Finance)
+
+---
+
+### 📊 **Current Projects**  
+
+#### Basic Text Processing
+- Bag of Words implementation
+- Lemmatization techniques
+- Part-of-Speech tagging
+- Similarity measures (Cosine, Euclidean)
+- Spam mail detection
+
+#### Word Embeddings
+- Word2Vec implementations
+- Custom embedding model training
+
+#### SpaCy Projects
+- Named Entity Recognition
+- Document classification
+- Text summarization
+- Data preparation pipelines
+- Visualization tools
+
+#### LangChain & LLMs
+- Python code debugger with Llama3
+- Chain operations
+- RAG (Retrieval-Augmented Generation) system
+
+#### Hugging Face Transformers
+- Sentiment analysis applications
+
+#### Agentic AI
+- Research assistant
+- RAG with vector databases
+- MLflow integration
+
+#### Recommendation Systems
+- Book recommendation engine
+
+#### Summarization
+- Sequence-to-sequence models
+- Neural summarization training
+
+---
+
 ### 🤝 **Contributing**  
 Contributions are **welcome and encouraged!** 🚀  
 If you'd like to:  
