@@ -26,6 +26,6 @@ model_cache/
 
 # Python cache
 __pycache__/
-*/__pycache__/
+**/__pycache__/
 *.pyc
 *.pyo
