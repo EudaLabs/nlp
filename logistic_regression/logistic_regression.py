@@ -1,11 +1,14 @@
 import numpy as np
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.model_selection import train_test_split
+from scipy.sparse import issparse
 
 class LogisticRegressionNLP:
-    def __init__(self, learning_rate=0.01, num_iterations=1000):
+    def __init__(self, learning_rate=0.01, num_iterations=1000, early_stopping_rounds=10, min_delta=1e-4):
         self.learning_rate = learning_rate
         self.num_iterations = num_iterations
+        self.early_stopping_rounds = early_stopping_rounds
+        self.min_delta = min_delta
         self.weights = None
         self.bias = None
         self.vectorizer = CountVectorizer()
@@ -15,32 +18,53 @@ class LogisticRegressionNLP:
     
     def fit(self, X_text, y):
         # Convert text data to numerical features using bag of words
-        X = self.vectorizer.fit_transform(X_text).toarray()
+        # Keep as sparse matrix for memory efficiency - don't call .toarray()
+        X = self.vectorizer.fit_transform(X_text)
+        y = np.array(y)
         
         # Initialize parameters
         self.weights = np.zeros(X.shape[1])
         self.bias = 0
         
-        # Gradient descent
-        for _ in range(self.num_iterations):
-            # Forward propagation
-            z = np.dot(X, self.weights) + self.bias
+        # Track previous loss for early stopping
+        prev_loss = float('inf')
+        no_improvement_count = 0
+        
+        # Gradient descent with early stopping
+        for iteration in range(self.num_iterations):
+            # Forward propagation (works with sparse matrices)
+            z = X.dot(self.weights) + self.bias
             predictions = self.sigmoid(z)
             
-            # Calculate gradients
-            dw = (1/X.shape[0]) * np.dot(X.T, (predictions - y))
+            # Calculate loss for early stopping
+            loss = -np.mean(y * np.log(predictions + 1e-10) + (1 - y) * np.log(1 - predictions + 1e-10))
+            
+            # Calculate gradients (X.T.dot() works efficiently with sparse matrices)
+            dw = (1/X.shape[0]) * X.T.dot(predictions - y)
             db = (1/X.shape[0]) * np.sum(predictions - y)
             
             # Update parameters
             self.weights -= self.learning_rate * dw
             self.bias -= self.learning_rate * db
+            
+            # Early stopping check
+            if prev_loss - loss < self.min_delta:
+                no_improvement_count += 1
+                if no_improvement_count >= self.early_stopping_rounds:
+                    print(f"Early stopping at iteration {iteration + 1}")
+                    break
+            else:
+                no_improvement_count = 0
+            
+            prev_loss = loss
     
     def predict(self, X_text, threshold=0.5):
         # Convert text to numerical features using the fitted vectorizer
-        X = self.vectorizer.transform(X_text).toarray()
+        # Keep as sparse matrix - don't call .toarray()
+        X = self.vectorizer.transform(X_text)
         
-        # Make predictions
-        z = np.dot(X, self.weights) + self.bias
+        # Make predictions (sparse matrix dot product)
+        z = X.dot(self.weights) + self.bias
         predictions = self.sigmoid(z)
         
         # Convert probabilities to binary predictions
@@ -48,10 +72,11 @@ class LogisticRegressionNLP:
     
     def predict_proba(self, X_text):
         # Convert text to numerical features using the fitted vectorizer
-        X = self.vectorizer.transform(X_text).toarray()
+        # Keep as sparse matrix for memory efficiency
+        X = self.vectorizer.transform(X_text)
         
-        # Calculate probabilities
-        z = np.dot(X, self.weights) + self.bias
+        # Calculate probabilities (works with sparse matrices)
+        z = X.dot(self.weights) + self.bias
         return self.sigmoid(z)
 
 # Real usage implementation

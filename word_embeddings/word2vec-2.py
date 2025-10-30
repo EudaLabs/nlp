@@ -1,5 +1,22 @@
 import gensim.downloader as api
-wv = api.load('word2vec-google-news-300')
+import pickle
+from pathlib import Path
+
+# Cache the model to avoid re-downloading on every run
+cache_dir = Path('model_cache')
+cache_dir.mkdir(exist_ok=True)
+model_cache_path = cache_dir / 'word2vec-google-news-300.pkl'
+
+if model_cache_path.exists():
+    print("Loading Word2Vec model from cache...")
+    with open(model_cache_path, 'rb') as f:
+        wv = pickle.load(f)
+else:
+    print("Downloading Word2Vec model... (this may take a while on first run)")
+    wv = api.load('word2vec-google-news-300')
+    print("Caching model for future use...")
+    with open(model_cache_path, 'wb') as f:
+        pickle.dump(wv, f)
 
 
 
