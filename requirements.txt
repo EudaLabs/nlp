@@ -1,1 +1,51 @@
-sentence-transformers>=2.0.0 
+# Core NLP Libraries
+sentence-transformers>=2.0.0
+spacy>=3.5.0
+nltk>=3.8.0
+gensim>=4.3.0
+scikit-learn>=1.3.0
+
+# Data Processing
+numpy>=1.24.0
+pandas>=2.0.0
+
+# Visualization
+matplotlib>=3.7.0
+seaborn>=0.12.0
+
+# LLM & Transformers
+transformers>=4.30.0
+torch>=2.0.0
+datasets>=2.12.0
+accelerate>=0.20.0
+
+# LangChain
+langchain>=0.1.0
+langchain-community>=0.0.20
+
+# Vector Stores
+pinecone-client>=2.2.0
+chromadb>=0.4.0
+faiss-cpu>=1.7.4
+
+# Web Frameworks
+fastapi>=0.100.0
+uvicorn>=0.22.0
+gradio>=4.0.0
+streamlit>=1.24.0
+
+# MLOps
+mlflow>=2.4.0
+
+# Testing & Quality
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-mock>=3.11.0
+black>=23.7.0
+flake8>=6.0.0
+isort>=5.12.0
+
+# Utilities
+python-dotenv>=1.0.0
+tqdm>=4.65.0
+requests>=2.31.0 
