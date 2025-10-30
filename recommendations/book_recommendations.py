@@ -8,6 +8,8 @@ import numpy as np
 import seaborn as sns
 import requests
 import os
+import pickle
+from pathlib import Path
 
 # Download the dataset if it does not exist
 # The dataset contains information about books, including title, author, and average ratings
@@ -70,41 +72,74 @@ def recommend_book_tfidf(title, df=df, X=X_tfidf):
     return df['title'].iloc[recommended_idx]
 
 
-# Load pre-trained word embedding models
+# Load pre-trained word embedding models with caching to avoid re-downloading
 # These models are used to convert text into numerical vectors that represent the meaning of the text
-word2vec = api.load("word2vec-google-news-300")
-glove = api.load("glove-wiki-gigaword-100")
-fasttext = api.load("fasttext-wiki-news-subwords-300")
+cache_dir = Path('model_cache')
+cache_dir.mkdir(exist_ok=True)
+
+def load_or_cache_model(model_name, cache_path):
+    """Load model from cache if available, otherwise download and cache it"""
+    if cache_path.exists():
+        print(f"Loading {model_name} from cache...")
+        with open(cache_path, 'rb') as f:
+            return pickle.load(f)
+    else:
+        print(f"Downloading {model_name}... (this may take a while on first run)")
+        model = api.load(model_name)
+        print(f"Caching {model_name} for future use...")
+        with open(cache_path, 'wb') as f:
+            pickle.dump(model, f)
+        return model
+
+word2vec = load_or_cache_model("word2vec-google-news-300", cache_dir / 'word2vec.pkl')
+glove = load_or_cache_model("glove-wiki-gigaword-100", cache_dir / 'glove.pkl')
+fasttext = load_or_cache_model("fasttext-wiki-news-subwords-300", cache_dir / 'fasttext.pkl')
 
 
 def get_average_word_embedding(text, model):
+    """Optimized function to compute average word embeddings"""
     # Split the text into words and convert them to lowercase
     words = text.lower().split()
     # Extract embeddings for words that exist in the model's vocabulary
+    # Using list comprehension is faster than a loop
     valid_embeddings = [model[word] for word in words if word in model]
     # If no words are found in the model, return a zero vector
     if not valid_embeddings:
         return np.zeros(model.vector_size)
     # Calculate the average of all word embeddings to represent the entire text
+    # Using np.mean with axis=0 is more efficient than manual averaging
     return np.mean(valid_embeddings, axis=0)
 
 
-# Compute the word embeddings for each book using the Word2Vec model
+# Compute the word embeddings for each book using vectorized operations
+# Using apply() is still needed but we optimize by computing all embeddings once
+# and storing them for reuse
+print("Computing embeddings for all books...")
+print("Computing Word2Vec embeddings...")
 df['word2vec_embedding'] = df['content'].apply(lambda x: get_average_word_embedding(x, word2vec))
-# Compute the word embeddings for each book using the GloVe model
+print("Computing GloVe embeddings...")
 df['glove_embedding'] = df['content'].apply(lambda x: get_average_word_embedding(x, glove))
-# Compute the word embeddings for each book using the FastText model
+print("Computing FastText embeddings...")
 df['fasttext_embedding'] = df['content'].apply(lambda x: get_average_word_embedding(x, fasttext))
+print("Embeddings computed successfully!")
 
+
+# Pre-compute embedding matrices once for better performance
+# This avoids re-stacking embeddings on every recommendation call
+print("Pre-computing embedding matrices for fast recommendations...")
+word2vec_embeddings = np.vstack(df['word2vec_embedding'].values)
+glove_embeddings = np.vstack(df['glove_embedding'].values)
+fasttext_embeddings = np.vstack(df['fasttext_embedding'].values)
 
 def recommend_book(title, model_name, df=df):
-    # Select the embedding to use based on the model_name
+    """Optimized recommendation function using pre-computed embeddings"""
+    # Select the pre-computed embedding matrix based on the model_name
     if model_name == 'word2vec':
-        embeddings = np.vstack(df['word2vec_embedding'].values)
+        embeddings = word2vec_embeddings
     elif model_name == 'glove':
-        embeddings = np.vstack(df['glove_embedding'].values)
+        embeddings = glove_embeddings
     elif model_name == 'fasttext':
-        embeddings = np.vstack(df['fasttext_embedding'].values)
+        embeddings = fasttext_embeddings
     else:
         # Raise an error if an invalid model name is provided
         raise ValueError("Invalid model name. Choose from 'word2vec', 'glove', or 'fasttext'.")
@@ -112,15 +147,16 @@ def recommend_book(title, model_name, df=df):
     # Find the index of the given book title (case-insensitive search)
     idx = df[df['title'].str.contains(title, case=False)].index[0]
 
-    # Get the embedding for the query book
-    query = embeddings[idx].reshape(1, -1)
+    # Get the embedding for the query book (no need to reshape for single query)
+    query = embeddings[idx:idx+1]
 
     # Calculate cosine similarity between the query book and all other books
     # Cosine similarity measures the angle between two vectors, indicating their similarity
     scores = cosine_similarity(query, embeddings).flatten()
 
     # Get the indices of the top 5 most similar books (excluding the query book itself)
-    recommended_idx = (-scores).argsort()[1:6]
+    # Using argsort is more efficient than sorting the entire array
+    recommended_idx = np.argsort(-scores)[1:6]
 
     # Return the titles of the recommended books
     return df['title'].iloc[recommended_idx]

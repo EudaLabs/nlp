@@ -89,9 +89,13 @@ class VectorStore:
                  api_key: str,
                  environment: str,
                  index_name: str,
-                 embedding_model: str = 'all-MiniLM-L6-v2'):
+                 embedding_model: str = 'all-MiniLM-L6-v2',
+                 use_gpu: bool = True):
         
-        self.embedding_model = SentenceTransformer(embedding_model)
+        # Use GPU if available for faster embedding computation
+        device = 'cuda' if use_gpu and torch.cuda.is_available() else 'cpu'
+        self.embedding_model = SentenceTransformer(embedding_model, device=device)
+        logger.info(f"Using device: {device} for embeddings")
         
         # Initialize Pinecone
         pinecone.init(api_key=api_key, environment=environment)
@@ -106,25 +110,38 @@ class VectorStore:
             
         self.index = pinecone.Index(index_name)
         
-    def embed_texts(self, texts: List[str]) -> np.ndarray:
-        """Generate embeddings for a list of texts"""
-        return self.embedding_model.encode(texts)
+    def embed_texts(self, texts: List[str], batch_size: int = 32) -> np.ndarray:
+        """Generate embeddings for a list of texts with optimized batching"""
+        # Use batching and show progress for better performance
+        return self.embedding_model.encode(
+            texts, 
+            batch_size=batch_size,
+            show_progress_bar=True,
+            convert_to_numpy=True
+        )
     
-    def upsert_documents(self, documents: List[Dict]):
+    def upsert_documents(self, documents: List[Dict], batch_size: int = 100):
         """
-        Upload documents and their embeddings to Pinecone
+        Upload documents and their embeddings to Pinecone with optimized batching
         """
-        batch_size = 100
-        for i in tqdm(range(0, len(documents), batch_size)):
+        logger.info(f"Uploading {len(documents)} documents to Pinecone")
+        
+        for i in tqdm(range(0, len(documents), batch_size), desc="Uploading batches"):
             batch = documents[i:i + batch_size]
             texts = [doc['content'] for doc in batch]
-            embeddings = self.embed_texts(texts)
             
-            # Prepare vectors for upload
-            vectors = []
-            for j, (doc, embedding) in enumerate(zip(batch, embeddings)):
-                vector_id = hashlib.md5(doc['content'].encode()).hexdigest()
-                vectors.append((vector_id, embedding.tolist(), doc['metadata']))
+            # Compute embeddings in batch (more efficient than one at a time)
+            embeddings = self.embed_texts(texts, batch_size=min(batch_size, 32))
+            
+            # Prepare vectors for upload using list comprehension for better performance
+            vectors = [
+                (
+                    hashlib.md5(doc['content'].encode()).hexdigest(),
+                    embedding.tolist(),
+                    doc['metadata']
+                )
+                for doc, embedding in zip(batch, embeddings)
+            ]
                 
             # Upload to Pinecone
             self.index.upsert(vectors=vectors)

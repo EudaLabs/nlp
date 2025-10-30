@@ -19,3 +19,7 @@ mlruns/
 *.man
 *.mdoc
 *.roff
+
+# Model cache directory (contains large pre-trained models)
+model_cache/
+**/model_cache/
