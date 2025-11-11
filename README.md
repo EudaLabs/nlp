@@ -144,10 +144,24 @@ This repository is continuously growing from **31 projects to 100+ over 9 months
 
 ### 📊 **Current Projects**  
 
-#### 🆕 BERT & Transformers
+#### 🆕 Advanced Transformers & Text Generation
+- **T5 Text Generation** - Multi-task text-to-text transformer for summarization, translation, and paraphrasing
+- **GPT-2 Fine-tuning** - Text generation and completion with customizable training
 - **BERT Text Classification** - Fine-tuning BERT for sentiment analysis and multi-class classification
 - **Training & Inference Pipeline** - Complete implementation with evaluation metrics
 - **Configurable Architecture** - Easy-to-use configuration classes
+
+#### 🎯 Specialized NLP Tasks
+- **Question Answering System** - Extractive QA with BERT, RoBERTa, and SQuAD support
+- **Advanced QA Features** - Batch processing, confidence scoring, and multi-document QA
+- **Named Entity Recognition** - Multi-backend NER with SpaCy and BERT
+
+#### 📊 Model Evaluation Framework
+- **Classification Metrics** - Accuracy, Precision, Recall, F1, ROC-AUC, confusion matrices
+- **Generation Metrics** - BLEU, ROUGE, METEOR for text generation evaluation
+- **QA Metrics** - Exact Match and F1 scoring for question answering
+- **NER Metrics** - Token and entity-level evaluation with per-class metrics
+- **Visualization Tools** - Confusion matrices, ROC curves, and model comparisons
 
 #### 🚀 Production Deployment
 - **FastAPI Model Serving** - RESTful API for model inference with Docker support

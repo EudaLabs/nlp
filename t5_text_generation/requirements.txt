@@ -1,0 +1,8 @@
+transformers>=4.30.0
+torch>=2.0.0
+sentencepiece>=0.1.99
+datasets>=2.12.0
+rouge-score>=0.1.2
+nltk>=3.8.0
+tqdm>=4.65.0
+accelerate>=0.20.0
