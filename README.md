@@ -144,10 +144,27 @@ This repository is continuously growing from **31 projects to 100+ over 9 months
 
 ### 📊 **Current Projects**  
 
+#### 🤖 Modern Text Generation
+- **T5 Text Generation** - Comprehensive text-to-text generation (summarization, translation, paraphrasing, question generation)
+- **GPT-2 Fine-tuning** - Creative text generation, story writing, dialogue generation
+- **Fine-tuning Pipelines** - Train on custom datasets for domain-specific generation
+
+#### 💬 Question Answering Systems
+- **Extractive QA** - Find answers in context using BERT/RoBERTa models
+- **Generative QA** - Generate answers using T5/FLAN models
+- **Hybrid QA** - Combine extractive and generative approaches for best results
+- **Batch Processing** - Efficient multi-question answering
+
 #### 🆕 BERT & Transformers
 - **BERT Text Classification** - Fine-tuning BERT for sentiment analysis and multi-class classification
 - **Training & Inference Pipeline** - Complete implementation with evaluation metrics
 - **Configurable Architecture** - Easy-to-use configuration classes
+
+#### 📊 Evaluation Framework
+- **Classification Metrics** - Accuracy, precision, recall, F1, confusion matrix
+- **QA Metrics** - Exact Match, token-level F1 scores
+- **Generation Metrics** - BLEU, ROUGE, METEOR scores
+- **Unified Interface** - Single API for all evaluation tasks
 
 #### 🚀 Production Deployment
 - **FastAPI Model Serving** - RESTful API for model inference with Docker support
