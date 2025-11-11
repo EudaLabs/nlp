@@ -18,20 +18,77 @@ This directory contains Gradio-based web applications for various NLP tasks. Gra
 
 ## Available Demos
 
-### 1. Sentiment Analysis
+### 🎯 Demo Hub (All-in-One)
+**File**: `demo_hub.py`  
+Unified interface with all major NLP tasks in one place.
+- T5 Summarization & Translation
+- GPT-2 Text Generation
+- Question Answering
+- Zero-Shot Classification
+
+```bash
+python -m gradio_demos.demo_hub
+```
+
+### 📝 T5 Text Generation
+**File**: `t5_generation.py`  
+Comprehensive T5-based text generation:
+- Text Summarization
+- Translation (English ↔ German)
+- Paraphrasing with variations
+- Question Generation
+
+```bash
+python -m gradio_demos.t5_generation
+```
+
+### ✨ GPT-2 Text Generation
+**File**: `gpt2_generation.py`  
+Creative text generation with GPT-2:
+- Customizable text generation
+- Story generation
+- Multiple variations with different creativity levels
+- Advanced parameter controls
+
+```bash
+python -m gradio_demos.gpt2_generation
+```
+
+### ❓ Question Answering
+**File**: `question_answering_demo.py`  
+Multi-approach QA system:
+- Extractive QA (find answers in context)
+- Generative QA (generate answers)
+- Hybrid QA (automatic method selection)
+- Batch processing support
+
+```bash
+python -m gradio_demos.question_answering_demo
+```
+
+### 😊 Sentiment Analysis
+**File**: `sentiment_analysis.py`  
 Interactive sentiment analysis with BERT.
 
-### 2. Text Classification
+```bash
+python -m gradio_demos.sentiment_analysis
+```
+
+### 🏷️ Text Classification
+**File**: `text_classification.py`  
 Multi-class text classification demo.
 
-### 3. Named Entity Recognition
+```bash
+python -m gradio_demos.text_classification
+```
+
+### 🔍 Named Entity Recognition
+**File**: `ner_demo.py`  
 Visualize entities in text.
 
-### 4. Text Summarization
-Generate summaries of long texts.
-
-### 5. Question Answering
-Ask questions about a context.
+```bash
+python -m gradio_demos.ner_demo
+```
 
 ## Quick Start
 
