@@ -8,7 +8,7 @@ from transformers import (
     AutoModelForSequenceClassification,
     pipeline
 )
-from typing import List, Dict, Any, Optional, Union
+from typing import List, Dict, Any, Optional, Union, Tuple
 import logging
 import numpy as np
 
